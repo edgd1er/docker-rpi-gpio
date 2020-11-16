@@ -1,0 +1,21 @@
+version: '3.5'
+services:
+  gpio:
+    image: edgd1er/gpio:latest
+    build:
+      dockerfile: Dockerfile
+      context: .
+    restart: "no"
+    environment:
+      - TZ=Europe/Paris
+    devices:
+      - /dev/mem
+      #- /dev/gpiomem
+    cap_add:
+      - SYS_RAWIO
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    network_mode: host
